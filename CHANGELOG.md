@@ -8,8 +8,9 @@
 
 ### Changed
 
-- Avoid the use of refcounting in threaded mode (#3, @Dr-Emann)
-- Slightly reduce overhead in signal checking (#2, @Dr-Emann)
+- Updated dependencies
+- Avoid the use of refcounting in threaded mode (#3, @Dr-Emann).
+- Slightly reduce overhead in signal checking (#2, @Dr-Emann).
 
 ## [0.7.0] - 2019-07-02
 
