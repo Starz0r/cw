@@ -1,6 +1,6 @@
 [package]
 name = "cw"
-version = "0.8.0"
+version = "0.9.0"
 authors = ["Thomas Hurst <tom@hur.st>"]
 license = "MIT"
 description = "Count Words, a fast wc clone"
