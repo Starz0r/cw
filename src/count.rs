@@ -181,7 +181,7 @@ pub trait Counter {
         let path = path.as_ref();
         let mut count = Counts::new(path);
 
-        open_file(&path).and_then(|fd| self.count(fd, &mut count, &opt))?;
+        open_file(path).and_then(|fd| self.count(fd, &mut count, opt))?;
         Ok(count)
     }
 }
@@ -233,7 +233,7 @@ impl Counter for BytesOnly {
         let path = path.as_ref();
         let mut count = Counts::new(path);
 
-        let bytes = std::fs::metadata(&path)
+        let bytes = std::fs::metadata(path)
             .iter()
             .filter(|md| md.is_file())
             .map(std::fs::Metadata::len)
@@ -242,7 +242,7 @@ impl Counter for BytesOnly {
         if let Some(bytes) = bytes {
             count.bytes = bytes;
         } else {
-            open_file(&path).and_then(|fd| self.count(fd, &mut count, &opt))?;
+            open_file(path).and_then(|fd| self.count(fd, &mut count, opt))?;
         }
 
         Ok(count)
@@ -274,7 +274,7 @@ impl Counter for LinesOnly {
 
     // Fast path for -l
     fn_count!(|| |buf: &[u8], count: &mut Counts| {
-        count.lines += bytecount::count(&buf, b'\n') as u64;
+        count.lines += bytecount::count(buf, b'\n') as u64;
     });
 }
 
@@ -300,7 +300,7 @@ impl Counter for CharsOnly {
 
     // Fast path for -m
     fn_count!(|| |buf: &[u8], count: &mut Counts| {
-        count.chars += bytecount::num_chars(&buf) as u64;
+        count.chars += bytecount::num_chars(buf) as u64;
     });
 }
 
@@ -538,7 +538,7 @@ impl Counter for CharsWordsLinesLongest {
             if siginfo::check_signal() {
                 let err = io::stderr();
                 let mut errl = err.lock();
-                let _ = count.print(&opt, &mut errl);
+                let _ = count.print(opt, &mut errl);
             }
         }
 

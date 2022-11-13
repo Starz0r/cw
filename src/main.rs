@@ -41,7 +41,7 @@ fn bytes_to_pathbuf(bytes: &[u8]) -> PathBuf {
 #[cfg(not(unix))]
 fn bytes_to_pathbuf(bytes: &[u8]) -> PathBuf {
     // Blargh, it'll do for now, I guess :/
-    PathBuf::from(String::from_utf8_lossy(&bytes).to_string())
+    PathBuf::from(String::from_utf8_lossy(bytes).to_string())
 }
 
 fn append_delimited_filenames_read<R: Read>(
@@ -63,15 +63,15 @@ fn append_delimited_filenames_read<R: Read>(
 
 fn append_delimited_filenames<P: AsRef<Path>>(
     source: P,
-    mut dest: &mut Vec<PathBuf>,
+    dest: &mut Vec<PathBuf>,
     delimiter: u8,
 ) -> io::Result<()> {
     let source = source.as_ref();
 
     if source == Path::new("-") {
-        append_delimited_filenames_read(&mut io::stdin(), &mut dest, delimiter)
+        append_delimited_filenames_read(&mut io::stdin(), dest, delimiter)
     } else {
-        append_delimited_filenames_read(File::open(source)?, &mut dest, delimiter)
+        append_delimited_filenames_read(File::open(source)?, dest, delimiter)
     }
 }
 
@@ -131,7 +131,7 @@ fn main() -> io::Result<()> {
                         let path = &opt.input[i];
 
                         let ret = strategy
-                            .count_file(&path, &opt)
+                            .count_file(&path, opt)
                             .map_err(|e| (path.clone(), e));
 
                         if result_tx.send(ComputedCount(i, ret)).is_err() {
@@ -157,7 +157,7 @@ fn main() -> io::Result<()> {
                     match count {
                         Ok(count) => {
                             total.add(&count);
-                            count.print(&opt, &mut out).expect("stdout");
+                            count.print(opt, &mut out).expect("stdout");
                         }
                         Err((path, e)) => {
                             exit_code = 1;
