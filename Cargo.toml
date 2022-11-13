@@ -17,7 +17,7 @@ libc = "0.2"
 memchr = "2.1"
 crossbeam-channel = "0.5"
 crossbeam-utils = "0.8"
-bstr = "0.2.0"
+bstr = "1.0.0"
 
 [target.'cfg(windows)'.dependencies]
 winapi = { version = "0.3.8", features = ["winbase"] }
