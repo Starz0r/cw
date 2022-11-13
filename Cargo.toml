@@ -11,13 +11,13 @@ categories = [ "command-line-utilities", "text-processing" ]
 edition = "2018"
 
 [dependencies]
-bytecount = "0.6.3"
-structopt = "0.3"
-libc = "0.2"
-memchr = "2.1"
-crossbeam-channel = "0.5"
-crossbeam-utils = "0.8"
-bstr = "1.0.0"
+bytecount = "=0.6.3"
+structopt = "=0.3.26"
+libc = "=0.2.137"
+memchr = "=2.4.1"
+crossbeam-channel = "=0.5.6"
+crossbeam-utils = "=0.8.12"
+bstr = "=1.0.0"
 
 [target.'cfg(windows)'.dependencies]
 winapi = { version = "0.3.8", features = ["winbase"] }
