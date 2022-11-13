@@ -1,6 +1,6 @@
 [package]
 name = "cw"
-version = "0.7.0"
+version = "0.8.0"
 authors = ["Thomas Hurst <tom@hur.st>"]
 license = "MIT"
 description = "Count Words, a fast wc clone"
@@ -11,7 +11,7 @@ categories = [ "command-line-utilities", "text-processing" ]
 edition = "2018"
 
 [dependencies]
-bytecount = "0.6"
+bytecount = "0.6.3"
 structopt = "0.3"
 libc = "0.2"
 memchr = "2.1"
