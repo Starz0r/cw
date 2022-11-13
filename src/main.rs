@@ -131,7 +131,7 @@ fn main() -> io::Result<()> {
                         let path = &opt.input[i];
 
                         let ret = strategy
-                            .count_file(&path, opt)
+                            .count_file(path, opt)
                             .map_err(|e| (path.clone(), e));
 
                         if result_tx.send(ComputedCount(i, ret)).is_err() {
@@ -170,7 +170,7 @@ fn main() -> io::Result<()> {
         .expect("thread");
     } else {
         for path in &opt.input {
-            match strategy.count_file(&path, &opt) {
+            match strategy.count_file(path, &opt) {
                 Ok(count) => {
                     total.add(&count);
                     count.print(&opt, &mut out)?;
